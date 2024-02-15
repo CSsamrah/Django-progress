@@ -8,4 +8,4 @@ from django.http import HttpResponse
 #     return HttpResponse('Hello world') 
 #this request will give response as an html template
 def hello(request):
-    return render(request, 'hello.html')
+    return render(request, 'hello.html',{'name':'samrah'})
