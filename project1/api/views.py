@@ -4,6 +4,10 @@ from django.http import HttpResponse
 from rest_framework.renderers import JSONRenderer
 from .models import Student
 from .serializers import StudentSerializer
+import io
+from rest_framework.parsers import JSONParser
+from django.views.decorators.csrf import csrf_exempt
+
 
 def api_home(request,*args,**kwargs):
     return HttpResponse("hello world")
@@ -25,4 +29,21 @@ def student_detail(request, pk):
     serializer=StudentSerializer(stu)
     json_data=JSONRenderer().render(serializer.data)
     return HttpResponse(json_data)
+
+@csrf_exempt
+#create function view
+def student_create(request):
+    if request.method == 'POST':
+        json_data=request.body
+        stream=io.BytesIO(json_data)
+        python_data=JSONParser().parse(stream)
+        serializer=StudentSerializer(data=python_data)
+        if serializer.is_valid():
+            serializer.save()
+            resp={'msg':'data is created'}
+            json_data=JSONRenderer().render(resp)
+            return HttpResponse(json_data,content_type='application/json')
+        json_data=JSONRenderer().render(serializer.errors)
+        return HttpResponse(json_data,content_type='application/json')
+
     
