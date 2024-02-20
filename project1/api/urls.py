@@ -4,5 +4,6 @@ urlpatterns=[
     path("api_home/",views.api_home),
     path("hello/",views.hello),
     path("studinfo/",views.student_list),
-    path('studinfo/<int:pk>',views.student_detail)
+    path('studinfo/<int:pk>',views.student_detail),
+    path('studcreate/',views.student_create)
 ]
