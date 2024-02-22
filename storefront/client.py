@@ -1,10 +1,8 @@
 import requests
 import json
 
-URL="http://127.0.0.1:8000/playground/student-create/"
-URL2='http://127.0.0.1:8000/playground/student-display/'
-URL3="http://127.0.0.1:8000/playground/student-update/"
-URL4="http://127.0.0.1:8000/playground/student-delete/"
+URL="http://127.0.0.1:8000/playground/studentapi/"
+
 
 # read data
 def get_data(id=None):
@@ -12,10 +10,10 @@ def get_data(id=None):
     if id is not None:
         data={'id':id}
     json_data=json.dumps(data)
-    r=requests.get(url=URL2,data=json_data)
+    r=requests.get(url=URL,data=json_data)
     data=r.json()
     print(data)
-get_data(2)
+# get_data(2)
 
 
 
@@ -23,8 +21,8 @@ get_data(2)
 def post_data():
     data={
     'name':'samrah',
-    'roll':17,
-    'city':'lahore',
+    'roll':123,
+    'city':'karachi',
     }
 
     json_data=json.dumps(data)
@@ -45,21 +43,21 @@ def update_data():
 
     json_data=json.dumps(data)
 
-    r=requests.put(url=URL3, data=json_data)
+    r=requests.put(url=URL, data=json_data)
 
     data=r.json()
     print(data)
-update_data()
+# update_data()
 
 def delete_data():
     data={
-    'id':7
+    'id':6
     }
 
     json_data=json.dumps(data)
 
-    r=requests.delete(url=URL4, data=json_data)
+    r=requests.delete(url=URL, data=json_data)
 
     data=r.json()
     print(data)
-delete_data()
+# delete_data()
