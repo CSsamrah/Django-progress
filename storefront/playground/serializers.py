@@ -2,13 +2,13 @@ from rest_framework import serializers
 from .models import Student
 
 
-def city_karachi(value):
-    if value!='lahore':
-        raise serializers.ValidationError('city should be lahore')
+# def city_karachi(value):
+#     if value!='lahore':
+#         raise serializers.ValidationError('city should be lahore')
 class StudentSerializer(serializers.Serializer):
     name=serializers.CharField(max_length=100)
     roll=serializers.IntegerField()
-    city=serializers.CharField(max_length=100,validators=[city_karachi])
+    city=serializers.CharField(max_length=100)
 
     def create(self,validated_data):
         return Student.objects.create(**validated_data)
@@ -20,10 +20,10 @@ class StudentSerializer(serializers.Serializer):
         instance.city=validated_data.get('city',instance.city)
         instance.save()
         return instance
-    def validate_roll(self,value):
-        if value>=200:
-            raise serializers.ValidationError('seat Full')
-        return value
+    # def validate_roll(self,value):
+    #     if value>=200:
+    #         raise serializers.ValidationError('seat Full')
+    #     return value
     # def validate(self,data):
     #     nm=data.get('name')
     #     ct=data.get('city')
