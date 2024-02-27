@@ -7,19 +7,63 @@ import json
 # get_response=requests.get(endpoint)
 # print(get_response.text)
 
-URL="http://127.0.0.1:8000/api/studcreate/"
+URL="http://127.0.0.1:8000/api/student-api/"
 
-data={
-    'name':'daniya',
-    'roll':17,
-    'city':'faisalabad',
-}
+def get_data(id=None):
+    data={}
+    if id is not None:
+        data={'id':id}
+    json_data=json.dumps(data)
+    headers={'content-type':'application/json'}
+    r=requests.get(url=URL,headers=headers,data=json_data)
+    data=r.json()
+    print(data)
+get_data(15)
 
-json_data=json.dumps(data)
-print(json_data)
-r=requests.post(url=URL, data=json_data)
-data=r.json()
-print(data)
+def create_data():
+    data={
+        'name':'sajjad',
+        'roll':45,
+        'city':'karachi'
+    }
+    json_data=json.dumps(data)
+    headers={'content-type':'application/json'}
+    r=requests.post(url=URL,headers=headers,data=json_data)
+    data=r.json()
+    print(data)
+# create_data()
+
+
+def update_data():
+    data={
+    'id':21,
+    'name':'samrah',
+    'roll':56,
+    'city':'karachi',
+    }
+
+    json_data=json.dumps(data)
+    headers={'content-Type':'application/json'}
+
+    r=requests.put(url=URL,headers=headers, data=json_data)
+
+    data=r.json()
+    print(data)
+# update_data()
+
+def delete_data():
+    data={
+        'id':19
+    }
+    json_data=json.dumps(data)
+    headers={'content-type':'application/json'}
+    r=requests.delete(url=URL,headers=headers, data=json_data)
+    data=r.json()
+    print(data)
+delete_data()
+    
+
+
 
 
 # print(get_response.json())  

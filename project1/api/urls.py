@@ -5,5 +5,6 @@ urlpatterns=[
     # path("hello/",views.hello),
     # path("studinfo/",views.student_list),
     # path('studinfo/<int:pk>',views.student_detail),
-    path('student-api/',views.studentApi)
+    path('student-api/',views.student_api),
+    path('student-api/<int:id>',views.student_api)
 ]
