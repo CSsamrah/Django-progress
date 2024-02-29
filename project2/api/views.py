@@ -5,6 +5,8 @@ from .serializers import StudentSerializer
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import ListModelMixin,CreateModelMixin,RetrieveModelMixin,UpdateModelMixin,DestroyModelMixin
 
+
+#Generic api view
 class LCStudent(GenericAPIView,ListModelMixin,CreateModelMixin):
     queryset=Student.objects.all()
     serializer_class=StudentSerializer
@@ -14,6 +16,18 @@ class LCStudent(GenericAPIView,ListModelMixin,CreateModelMixin):
     
     def post(self,request,*args,**kwargs):
         return self.create(request,*args,**kwargs)
+
+class RUDStudent(GenericAPIView,RetrieveModelMixin,UpdateModelMixin,DestroyModelMixin):
+    queryset=Student.objects.all()
+    serializer_class=StudentSerializer
+
+    def get(self,request,*args,**kwargs):
+        return self.retrieve(request,*args,**kwargs)
+    def put(self,request,*args,**kwargs):
+        return self.update(request,*args,**kwargs)
+    def delete(self,request,*args,**kwargs):
+        return self.destroy(request,*args,**kwargs)
+
 
 
 
@@ -34,25 +48,25 @@ class LCStudent(GenericAPIView,ListModelMixin,CreateModelMixin):
 #     def post(self,request,*args,**kwargs):
 #         return self.create(request,*args,**kwargs)
     
-class StudentRetrieve(GenericAPIView,RetrieveModelMixin):
-    queryset=Student.objects.all()
-    serializer_class=StudentSerializer
+# class StudentRetrieve(GenericAPIView,RetrieveModelMixin):
+#     queryset=Student.objects.all()
+#     serializer_class=StudentSerializer
 
-    def get(self,request,*args,**kwargs):
-        return self.retrieve(request,*args,**kwargs)
+#     def get(self,request,*args,**kwargs):
+#         return self.retrieve(request,*args,**kwargs)
 
-class StudentUpdate(GenericAPIView,UpdateModelMixin):
-    queryset=Student.objects.all()
-    serializer_class=StudentSerializer
+# class StudentUpdate(GenericAPIView,UpdateModelMixin):
+#     queryset=Student.objects.all()
+#     serializer_class=StudentSerializer
 
-    def put(self,request,*args,**kwargs):
-        return self.update(request,*args,**kwargs)
+#     def put(self,request,*args,**kwargs):
+#         return self.update(request,*args,**kwargs)
 
-class StudentDelete(GenericAPIView,DestroyModelMixin):
-    queryset=Student.objects.all()
-    serializer_class=StudentSerializer
+# class StudentDelete(GenericAPIView,DestroyModelMixin):
+#     queryset=Student.objects.all()
+#     serializer_class=StudentSerializer
 
-    def delete(self,request,*args,**kwargs):
-        return self.destroy(request,*args,**kwargs)
+#     def delete(self,request,*args,**kwargs):
+#         return self.destroy(request,*args,**kwargs)
 
 

@@ -16,8 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from playground import views
+from rest_framework.routers import DefaultRouter
+
+#creating router object
+router=DefaultRouter()
+
+#register studentviewset with router
+router.register('studentapi',views.StudentViewSet, basename='student')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('playground/',include('playground.urls'))
+    path('playground/',include(router.urls))
 ]
