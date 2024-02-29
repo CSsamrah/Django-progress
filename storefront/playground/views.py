@@ -12,25 +12,30 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import viewsets
 
 #class based apiview
-class StudentApi(APIView):
-    def get(self,request,pk=None,format=None):
-        id=pk
-        if id is not None:
-            stu=Student.objects.get(id=id)
-            serializer=StudentSerializer(stu)
+class StudentViewSet(viewsets.ViewSet):
+    def list(self,request):
+            stu=Student.objects.all()
+            serializer=StudentSerializer(stu,many=True)
             return Response(serializer.data)
-        stu=Student.objects.all()
-        serializer=StudentSerializer(stu,many=True)
-        return Response(serializer.data)
-    def post(self,request,pk=None,format=None):
+       
+    def create(self,request):
         serializer=StudentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response({'msg':'data created'},status=status.HTTP_201_CREATED)
         return Response(serializer.errors)
-    def put(self,request,pk,format=None):
+    
+    def retrieve(self,request,pk=None):
+        id=pk
+        if id is not None:
+            stu=Student.objects.get(id=id)
+            serializer=StudentSerializer(stu)
+            return Response(serializer.data)
+        
+    def update(self,request,pk):
         id=pk
         stu=Student.objects.get(pk=id)
         serializer=StudentSerializer(stu,data=request.data)
@@ -38,15 +43,16 @@ class StudentApi(APIView):
             serializer.save()
             return Response({'msg':'data updated'})
         return Response(serializer.errors)
-    def patch(self,request,pk,format=None):
+    def partial_update(self,request,pk):
         id=pk
         stu=Student.objects.get(pk=id)
         serializer=StudentSerializer(stu,data=request.data,partial=True)
         if serializer.is_valid():
             serializer.save()
-            return Response({'msg':'data partially updated'})
+            return Response({'msg':'partial data updated'})
         return Response(serializer.errors)
-    def delete(self,request,pk=None,format=None):
+    
+    def delete(self,request,pk):
         id=pk 
         stu=Student.objects.get(pk=id)
         stu.delete()
