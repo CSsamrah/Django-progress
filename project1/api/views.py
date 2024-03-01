@@ -13,7 +13,9 @@ from rest_framework import status
 from rest_framework.generics import ListAPIView,CreateAPIView,RetrieveAPIView,UpdateAPIView,DestroyAPIView,ListCreateAPIView,RetrieveUpdateDestroyAPIView
 
 
-#generic concrete api view
+#Generic concrete api view
+
+
 # class StudentList(ListAPIView):
 #     queryset=Student.objects.all()
 #     serializer_class=StudentSerializer
